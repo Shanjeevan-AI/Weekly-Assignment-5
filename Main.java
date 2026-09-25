@@ -1,30 +1,25 @@
 import java.util.Scanner;
 public class Main {
-    void reverse(String sentence) {
-        String[] words = sentence.split(" ");
-        StringBuilder result = new StringBuilder();
+    static void parseInventoryRecord(String csvLine) {
 
-        for (int i = 0; i < words.length; i++) {
-            StringBuilder rev = new StringBuilder();
-            for (int j = words[i].length() - 1; j >= 0; j--) {
-                rev.append(words[i].charAt(j));
-            }
-            result.append(rev);
-            if (i < words.length - 1) {
-                result.append(" ");
-            }
+        String[] fields = csvLine.split(",");
+        if (fields.length != 3) {
+            System.out.println("Invalid Record");
+        } 
+        else {
+            System.out.println(
+                "Product: " + fields[0] +
+                " | SKU: " + fields[1] +
+                " | Qty: " + fields[2]
+            );
         }
-
-        System.out.println(result);
     }
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        System.out.print("Enter a sentence: ");
-        String inputSentence = sc.nextLine();
-
-        new Main().reverse(inputSentence);  // reverse() is non-static, so call it on an instance
-
-        sc.close();
+public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Enter inventory record: ");
+    String csvLine = sc.nextLine();
+    parseInventoryRecord(csvLine);
+    sc.close();
     }
 }
