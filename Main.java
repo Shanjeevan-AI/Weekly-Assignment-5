@@ -1,44 +1,25 @@
-import java.util.*;
-public class Main {
-    static void printFilteredWordFrequency(String feedback) {
-        // Stop words
-        Set<String> stopWords = new HashSet<>(
-            Arrays.asList("the", "was", "and", "a", "is", "of", "in")
-        );
-        // Convert to lowercase
-        String text = feedback.toLowerCase();
-        // Remove punctuation
-        text = text.replace(".", "");
-        text = text.replace(",", "");
-        // Split into words
-        String[] words = text.split("\\s+");
-        // Store word frequencies
-        HashMap<String, Integer> frequency = new HashMap<>();
-
-        for (String word : words) {
-
-            // Skip stop words
-            if (stopWords.contains(word)) {
-                continue;
-            }
-            // Count frequency
-            frequency.put(word, frequency.getOrDefault(word, 0) + 1);
-        }
-        List<Map.Entry<String, Integer>> list =
-            new ArrayList<>(frequency.entrySet());
-        list.sort((a, b) -> b.getValue() - a.getValue());
-        for (Map.Entry<String, Integer> entry : list) {
-            System.out.println(
-                entry.getKey() + ": " + entry.getValue()
-            );
-        }
-    }
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter feedback:");
-        String feedback = sc.nextLine();
-        printFilteredWordFrequency(feedback);
-
-        sc.close();
-    }
-}
+import java.util.*; 
+public class Main { 
+    public static int[] productExceptSelf(int[] nums) { 
+        int n = nums.length; 
+        int[] answer = new int[n]; // Forward pass: store product of elements to the left 
+        int prefix = 1; 
+        for (int i = 0; i < n; i++) { 
+            answer[i] = prefix; 
+            prefix = prefix * nums[i]; } // Backward pass: multiply by product of elements to the right 
+            int suffix = 1; 
+            for (int i = n - 1; i >= 0; i--) { 
+                answer[i] = answer[i] * suffix;
+                suffix = suffix * nums[i]; } 
+                return answer; } 
+            public static void main(String[] args) { 
+                Scanner sc = new Scanner(System.in);
+                System.out.print("Enter array size: ");
+                int n = sc.nextInt(); 
+                int[] nums = new int[n]; 
+                System.out.println("Enter array elements:");
+                for (int i = 0; i < n; i++) { 
+                    nums[i] = sc.nextInt(); } 
+                    int[] result = productExceptSelf(nums); 
+                    System.out.println("Product of array except self:"); 
+                    System.out.println(Arrays.toString(result)); sc.close(); } }
