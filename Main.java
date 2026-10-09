@@ -1,22 +1,23 @@
-
-import java.util.Arrays;
-
 public class Main {
 
-    static void applyMultipliers(double[] playerScores,
-                                 int captainIndex,
-                                 int viceCaptainIndex) {
+    static String findDuplicatePick(String[] playerNames) {
 
-        playerScores[captainIndex] *= 2;
-        playerScores[viceCaptainIndex] *= 1.5;
+        for (int i = 0; i < playerNames.length; i++) {
+            for (int j = i + 1; j < playerNames.length; j++) {
+
+                if (playerNames[i].equals(playerNames[j])) {
+                    return "Duplicate Found: " + playerNames[i];
+                }
+            }
+        }
+
+        return "No Duplicates Found";
     }
 
     public static void main(String[] args) {
 
-        double[] scores = {40, 55, 30, 62};
+        String[] players = {"Kohli", "Bumrah", "Kohli", "Rohit"};
 
-        applyMultipliers(scores, 1, 3);
-
-        System.out.println(Arrays.toString(scores));
+        System.out.println(findDuplicatePick(players));
     }
 }
