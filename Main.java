@@ -1,75 +1,33 @@
 import java.util.*;
-public class Main {
-    public static int[][] threeSum(int[] nums) {
 
-        Arrays.sort(nums);
-        List<int[]> result = new ArrayList<>();
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
 
-        for (int i = 0; i < nums.length - 2; i++) {
+        int sum = 0;
+        int count = 0;
 
-            if (i > 0 && nums[i] == nums[i - 1]) {
-                continue;
+        map.put(0, 1);
+
+        for (int num : nums) {
+            sum += num;
+
+            if (map.containsKey(sum - k)) {
+                count += map.get(sum - k);
             }
-            int left = i + 1;
-            int right = nums.length - 1;
 
-            while (left < right) {
-                int sum = nums[i] + nums[left] + nums[right];
-
-                if (sum == 0) {
-
-                    result.add(new int[]{
-                        nums[i],
-                        nums[left],
-                        nums[right]
-                    });
-
-                    while (left < right &&
-                           nums[left] == nums[left + 1]) {
-                        left++;
-                    }
-
-                    while (left < right &&
-                           nums[right] == nums[right - 1]) {
-                        right--;
-                    }
-
-                    left++;
-                    right--;
-
-                } else if (sum < 0) {
-                    left++;
-                } else {
-                    right--;
-                }
-            }
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
         }
 
-        return result.toArray(new int[result.size()][]);
+        return count;
     }
 
     public static void main(String[] args) {
+        Solution s = new Solution();
 
-        Scanner sc = new Scanner(System.in);
+        int[] nums = {1, 2, 3};
+        int k = 3;
 
-        System.out.print("Enter array size: ");
-        int n = sc.nextInt();
-
-        int[] nums = new int[n];
-
-        System.out.println("Enter array elements:");
-        for (int i = 0; i < n; i++) {
-            nums[i] = sc.nextInt();
-        }
-
-        int[][] result = threeSum(nums);
-
-        System.out.println("Unique triplets:");
-
-        for (int[] triplet : result) {
-            System.out.println(Arrays.toString(triplet));
-        }
-
-        sc.close();
+        System.out.println(s.subarraySum(nums, k));
     }
 }
