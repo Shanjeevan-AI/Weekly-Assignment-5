@@ -1,33 +1,22 @@
-import java.util.*;
 
-class Solution {
-    public int subarraySum(int[] nums, int k) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+import java.util.Arrays;
 
-        int sum = 0;
-        int count = 0;
+public class Main {
 
-        map.put(0, 1);
+    static void applyMultipliers(double[] playerScores,
+                                 int captainIndex,
+                                 int viceCaptainIndex) {
 
-        for (int num : nums) {
-            sum += num;
-
-            if (map.containsKey(sum - k)) {
-                count += map.get(sum - k);
-            }
-
-            map.put(sum, map.getOrDefault(sum, 0) + 1);
-        }
-
-        return count;
+        playerScores[captainIndex] *= 2;
+        playerScores[viceCaptainIndex] *= 1.5;
     }
 
     public static void main(String[] args) {
-        Solution s = new Solution();
 
-        int[] nums = {1, 2, 3};
-        int k = 3;
+        double[] scores = {40, 55, 30, 62};
 
-        System.out.println(s.subarraySum(nums, k));
+        applyMultipliers(scores, 1, 3);
+
+        System.out.println(Arrays.toString(scores));
     }
 }
